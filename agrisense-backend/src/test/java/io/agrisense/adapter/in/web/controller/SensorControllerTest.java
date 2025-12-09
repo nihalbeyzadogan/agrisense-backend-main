@@ -5,7 +5,7 @@ import io.agrisense.adapter.in.web.dto.SensorResponse;
 import io.agrisense.adapter.in.web.mapper.SensorWebMapper;
 import io.agrisense.domain.model.ESensorType;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.in.ManageSensorUseCase;
+import io.agrisense.ports.in.IManageSensorUseCase;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +22,13 @@ import static org.mockito.Mockito.when;
 
 public class SensorControllerTest {
 
-    private ManageSensorUseCase useCase;
+    private IManageSensorUseCase useCase;
     private SensorWebMapper mapper;
     private SensorController controller;
 
     @BeforeEach
     public void setup() {
-        useCase = Mockito.mock(ManageSensorUseCase.class);
+        useCase = Mockito.mock(IManageSensorUseCase.class);
         mapper = Mockito.mock(SensorWebMapper.class);
         controller = new SensorController(useCase, mapper);
     }

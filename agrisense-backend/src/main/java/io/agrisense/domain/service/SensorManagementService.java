@@ -1,19 +1,19 @@
 package io.agrisense.domain.service;
 
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.in.ManageSensorUseCase;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.in.IManageSensorUseCase;
+import io.agrisense.ports.out.ISensorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @ApplicationScoped
-public class SensorManagementService implements ManageSensorUseCase {
+public class SensorManagementService implements IManageSensorUseCase {
 
-    private final SensorRepository sensorRepository;
+    private final ISensorRepository sensorRepository;
 
-    public SensorManagementService(SensorRepository sensorRepository) {
+    public SensorManagementService(ISensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
     }
 

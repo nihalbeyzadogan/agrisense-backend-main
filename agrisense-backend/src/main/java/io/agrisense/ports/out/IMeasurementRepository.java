@@ -2,6 +2,6 @@ package io.agrisense.ports.out;
 
 import io.agrisense.domain.model.Measurement;
 
-public interface MeasurementRepository {
+public interface IMeasurementRepository {
     Measurement save(Measurement measurement);
 }

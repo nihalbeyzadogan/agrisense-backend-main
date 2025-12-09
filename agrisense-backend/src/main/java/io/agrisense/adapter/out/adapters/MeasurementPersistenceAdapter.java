@@ -4,14 +4,14 @@ import io.agrisense.adapter.out.Mapper.AgriSenseMapper;
 import io.agrisense.adapter.out.persistence.entity.MeasurementEntity;
 import io.agrisense.adapter.out.persistence.entity.SensorEntity;
 import io.agrisense.domain.model.Measurement;
-import io.agrisense.ports.out.MeasurementRepository;
+import io.agrisense.ports.out.IMeasurementRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class MeasurementPersistenceAdapter implements MeasurementRepository {
+public class MeasurementPersistenceAdapter implements IMeasurementRepository {
 
     @Inject
     EntityManager entityManager;

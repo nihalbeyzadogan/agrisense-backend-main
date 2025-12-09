@@ -3,8 +3,8 @@ package io.agrisense.domain.service;
 import io.agrisense.domain.model.AlertRule;
 import io.agrisense.domain.model.ECondition;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.out.AlertRuleRepository;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.out.IAlertRuleRepository;
+import io.agrisense.ports.out.ISensorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,14 +19,14 @@ import static org.mockito.Mockito.*;
 
 public class AlertRuleServiceTest {
 
-    private SensorRepository sensorRepository;
-    private AlertRuleRepository alertRuleRepository;
+    private ISensorRepository sensorRepository;
+    private IAlertRuleRepository alertRuleRepository;
     private AlertRuleService service;
 
     @BeforeEach
     public void setup() {
-        sensorRepository = Mockito.mock(SensorRepository.class);
-        alertRuleRepository = Mockito.mock(AlertRuleRepository.class);
+        sensorRepository = Mockito.mock(ISensorRepository.class);
+        alertRuleRepository = Mockito.mock(IAlertRuleRepository.class);
         service = new AlertRuleService(sensorRepository, alertRuleRepository);
     }
 

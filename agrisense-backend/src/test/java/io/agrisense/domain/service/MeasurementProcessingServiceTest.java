@@ -1,10 +1,10 @@
 package io.agrisense.domain.service;
 
 import io.agrisense.domain.model.*;
-import io.agrisense.ports.out.AlertRepository;
-import io.agrisense.ports.out.AlertRuleRepository;
-import io.agrisense.ports.out.MeasurementRepository;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.out.IAlertRepository;
+import io.agrisense.ports.out.IAlertRuleRepository;
+import io.agrisense.ports.out.IMeasurementRepository;
+import io.agrisense.ports.out.ISensorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,18 +20,18 @@ import static org.mockito.Mockito.*;
 
 public class MeasurementProcessingServiceTest {
 
-    private SensorRepository sensorRepository;
-    private MeasurementRepository measurementRepository;
-    private AlertRuleRepository alertRuleRepository;
-    private AlertRepository alertRepository;
+    private ISensorRepository sensorRepository;
+    private IMeasurementRepository measurementRepository;
+    private IAlertRuleRepository alertRuleRepository;
+    private IAlertRepository alertRepository;
     private MeasurementProcessingService service;
 
     @BeforeEach
     public void setup() {
-        sensorRepository = Mockito.mock(SensorRepository.class);
-        measurementRepository = Mockito.mock(MeasurementRepository.class);
-        alertRuleRepository = Mockito.mock(AlertRuleRepository.class);
-        alertRepository = Mockito.mock(AlertRepository.class);
+        sensorRepository = Mockito.mock(ISensorRepository.class);
+        measurementRepository = Mockito.mock(IMeasurementRepository.class);
+        alertRuleRepository = Mockito.mock(IAlertRuleRepository.class);
+        alertRepository = Mockito.mock(IAlertRepository.class);
         service = new MeasurementProcessingService(sensorRepository, measurementRepository, alertRuleRepository, alertRepository);
     }
 

@@ -7,7 +7,7 @@ import io.agrisense.adapter.out.Mapper.AgriSenseMapper;
 import io.agrisense.adapter.out.persistence.entity.FieldEntity;
 import io.agrisense.adapter.out.persistence.entity.SensorEntity;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.out.ISensorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -15,7 +15,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class SensorPersistenceAdapter implements SensorRepository {
+public class SensorPersistenceAdapter implements ISensorRepository {
 
     @Inject
     EntityManager entityManager;

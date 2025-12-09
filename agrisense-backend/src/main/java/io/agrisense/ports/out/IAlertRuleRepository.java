@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.agrisense.domain.model.AlertRule;
 
-public interface AlertRuleRepository {
+public interface IAlertRuleRepository {
     AlertRule save(AlertRule alertRule);
     List<AlertRule> findActiveBySensorId(Long sensorId);
 }

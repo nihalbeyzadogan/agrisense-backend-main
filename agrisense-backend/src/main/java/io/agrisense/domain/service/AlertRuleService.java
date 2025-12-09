@@ -4,9 +4,9 @@ import java.util.List;
 
 import io.agrisense.domain.model.AlertRule;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.out.AlertRuleRepository;
-import io.agrisense.ports.out.SensorRepository;
-import io.agrisense.ports.in.ManageAlertRuleUseCase;
+import io.agrisense.ports.out.IAlertRuleRepository;
+import io.agrisense.ports.out.ISensorRepository;
+import io.agrisense.ports.in.IManageAlertRuleUseCase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -15,13 +15,13 @@ import jakarta.transaction.Transactional;
  * Handles business logic for creating alert rules
  */
 @ApplicationScoped
-public class AlertRuleService implements ManageAlertRuleUseCase {
+public class AlertRuleService implements IManageAlertRuleUseCase {
     
-    private final SensorRepository sensorRepository;
-    private final AlertRuleRepository alertRuleRepository;
+    private final ISensorRepository sensorRepository;
+    private final IAlertRuleRepository alertRuleRepository;
     
-    public AlertRuleService(SensorRepository sensorRepository, 
-                           AlertRuleRepository alertRuleRepository) {
+    public AlertRuleService(ISensorRepository sensorRepository, 
+                           IAlertRuleRepository alertRuleRepository) {
         this.sensorRepository = sensorRepository;
         this.alertRuleRepository = alertRuleRepository;
     }

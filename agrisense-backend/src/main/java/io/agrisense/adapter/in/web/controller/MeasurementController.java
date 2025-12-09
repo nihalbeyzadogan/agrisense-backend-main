@@ -1,7 +1,7 @@
 package io.agrisense.adapter.in.web.controller;
 
 import io.agrisense.adapter.in.web.dto.CreateMeasurementRequest;
-import io.agrisense.ports.in.ProcessMeasurementUseCase;
+import io.agrisense.ports.in.IProcessMeasurementUseCase;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -15,10 +15,10 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class MeasurementController {
 
-    private final ProcessMeasurementUseCase processMeasurementUseCase;
+    private final IProcessMeasurementUseCase processMeasurementUseCase;
 
     @Inject
-    public MeasurementController(ProcessMeasurementUseCase processMeasurementUseCase) {
+    public MeasurementController(IProcessMeasurementUseCase processMeasurementUseCase) {
         this.processMeasurementUseCase = processMeasurementUseCase;
     }
 

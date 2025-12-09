@@ -2,7 +2,7 @@ package io.agrisense.domain.service;
 
 import io.agrisense.domain.model.ESensorType;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.out.ISensorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,12 +17,12 @@ import static org.mockito.Mockito.when;
 
 public class SensorManagementServiceTest {
 
-    private SensorRepository repository;
+    private ISensorRepository repository;
     private SensorManagementService service;
 
     @BeforeEach
     public void setup() {
-        repository = Mockito.mock(SensorRepository.class);
+        repository = Mockito.mock(ISensorRepository.class);
         service = new SensorManagementService(repository);
     }
 

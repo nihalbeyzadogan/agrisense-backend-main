@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.agrisense.domain.model.Sensor;
 
-public interface SensorRepository {
+public interface ISensorRepository {
     Sensor findById(Long id);
     Sensor save(Sensor sensor);
     List<Sensor> findAll();

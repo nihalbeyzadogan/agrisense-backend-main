@@ -1,7 +1,7 @@
 package io.agrisense.adapter.in.web.controller;
 
 import io.agrisense.adapter.in.web.dto.CreateMeasurementRequest;
-import io.agrisense.ports.in.ProcessMeasurementUseCase;
+import io.agrisense.ports.in.IProcessMeasurementUseCase;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,12 +14,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 public class MeasurementControllerTest {
 
-    private ProcessMeasurementUseCase useCase;
+    private IProcessMeasurementUseCase useCase;
     private MeasurementController controller;
 
     @BeforeEach
     public void setup() {
-        useCase = Mockito.mock(ProcessMeasurementUseCase.class);
+        useCase = Mockito.mock(IProcessMeasurementUseCase.class);
         controller = new MeasurementController(useCase);
     }
 

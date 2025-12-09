@@ -7,7 +7,7 @@ import io.agrisense.adapter.in.web.dto.CreateAlertRuleRequest;
 import io.agrisense.adapter.in.web.dto.AlertRuleResponse;
 import io.agrisense.adapter.in.web.mapper.AlertRuleWebMapper;
 import io.agrisense.domain.model.AlertRule;
-import io.agrisense.ports.in.ManageAlertRuleUseCase;
+import io.agrisense.ports.in.IManageAlertRuleUseCase;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -19,11 +19,11 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AlertRuleController {
     
-    private final ManageAlertRuleUseCase alertRuleUseCase;
+    private final IManageAlertRuleUseCase alertRuleUseCase;
     private final AlertRuleWebMapper alertRuleMapper;
     
     @Inject
-    public AlertRuleController(ManageAlertRuleUseCase alertRuleUseCase, AlertRuleWebMapper alertRuleMapper) {
+    public AlertRuleController(IManageAlertRuleUseCase alertRuleUseCase, AlertRuleWebMapper alertRuleMapper) {
         this.alertRuleUseCase = alertRuleUseCase;
         this.alertRuleMapper = alertRuleMapper;
     }

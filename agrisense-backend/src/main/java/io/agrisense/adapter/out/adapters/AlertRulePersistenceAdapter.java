@@ -7,7 +7,7 @@ import io.agrisense.adapter.out.Mapper.AgriSenseMapper;
 import io.agrisense.adapter.out.persistence.entity.AlertRuleEntity;
 import io.agrisense.adapter.out.persistence.entity.SensorEntity;
 import io.agrisense.domain.model.AlertRule;
-import io.agrisense.ports.out.AlertRuleRepository;
+import io.agrisense.ports.out.IAlertRuleRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -15,7 +15,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class AlertRulePersistenceAdapter implements AlertRuleRepository {
+public class AlertRulePersistenceAdapter implements IAlertRuleRepository {
 
     @Inject
     EntityManager entityManager;

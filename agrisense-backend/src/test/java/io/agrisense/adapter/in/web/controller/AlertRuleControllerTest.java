@@ -4,7 +4,7 @@ import io.agrisense.adapter.in.web.dto.CreateAlertRuleRequest;
 import io.agrisense.adapter.in.web.dto.AlertRuleResponse;
 import io.agrisense.adapter.in.web.mapper.AlertRuleWebMapper;
 import io.agrisense.domain.model.AlertRule;
-import io.agrisense.ports.in.ManageAlertRuleUseCase;
+import io.agrisense.ports.in.IManageAlertRuleUseCase;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,13 @@ import static org.mockito.ArgumentMatchers.eq;
 
 public class AlertRuleControllerTest {
 
-    private ManageAlertRuleUseCase useCase;
+    private IManageAlertRuleUseCase useCase;
     private AlertRuleWebMapper mapper;
     private AlertRuleController controller;
 
     @BeforeEach
     public void setup() {
-        useCase = Mockito.mock(ManageAlertRuleUseCase.class);
+        useCase = Mockito.mock(IManageAlertRuleUseCase.class);
         mapper = Mockito.mock(AlertRuleWebMapper.class);
         controller = new AlertRuleController(useCase, mapper);
     }

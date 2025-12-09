@@ -1,5 +1,5 @@
 package io.agrisense.ports.in;
 
-public interface ProcessMeasurementUseCase {
+public interface IProcessMeasurementUseCase {
     void processMeasurement(Long sensorId, double value, String unit);
 }

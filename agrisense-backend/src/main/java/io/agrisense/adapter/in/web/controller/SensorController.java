@@ -4,7 +4,7 @@ import io.agrisense.adapter.in.web.dto.CreateSensorRequest;
 import io.agrisense.adapter.in.web.dto.SensorResponse;
 import io.agrisense.adapter.in.web.mapper.SensorWebMapper;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.in.ManageSensorUseCase;
+import io.agrisense.ports.in.IManageSensorUseCase;
 
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -18,11 +18,11 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorController {
 
-    private final ManageSensorUseCase manageSensorUseCase;
+    private final IManageSensorUseCase manageSensorUseCase;
     private final SensorWebMapper sensorMapper;
 
     @Inject
-    public SensorController(ManageSensorUseCase manageSensorUseCase, SensorWebMapper sensorMapper) {
+    public SensorController(IManageSensorUseCase manageSensorUseCase, SensorWebMapper sensorMapper) {
         this.manageSensorUseCase = manageSensorUseCase;
         this.sensorMapper = sensorMapper;
     }

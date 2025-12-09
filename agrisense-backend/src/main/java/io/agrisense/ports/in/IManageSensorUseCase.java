@@ -3,7 +3,7 @@ package io.agrisense.ports.in;
 import io.agrisense.domain.model.Sensor;
 import java.util.List;
 
-public interface ManageSensorUseCase {
+public interface IManageSensorUseCase {
     Sensor createSensor(Sensor sensor);
     List<Sensor> getAllSensors();
     Sensor getSensorById(Long id);

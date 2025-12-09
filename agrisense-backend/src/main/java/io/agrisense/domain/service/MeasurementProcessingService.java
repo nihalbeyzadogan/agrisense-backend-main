@@ -6,26 +6,26 @@ import io.agrisense.domain.model.Alert;
 import io.agrisense.domain.model.AlertRule;
 import io.agrisense.domain.model.Measurement;
 import io.agrisense.domain.model.Sensor;
-import io.agrisense.ports.in.ProcessMeasurementUseCase;
-import io.agrisense.ports.out.AlertRepository;
-import io.agrisense.ports.out.AlertRuleRepository;
-import io.agrisense.ports.out.MeasurementRepository;
-import io.agrisense.ports.out.SensorRepository;
+import io.agrisense.ports.in.IProcessMeasurementUseCase;
+import io.agrisense.ports.out.IAlertRepository;
+import io.agrisense.ports.out.IAlertRuleRepository;
+import io.agrisense.ports.out.IMeasurementRepository;
+import io.agrisense.ports.out.ISensorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class MeasurementProcessingService implements ProcessMeasurementUseCase {
+public class MeasurementProcessingService implements IProcessMeasurementUseCase {
     
-    private final SensorRepository sensorRepository;
-    private final MeasurementRepository measurementRepository;
-    private final AlertRuleRepository alertRuleRepository;
-    private final AlertRepository alertRepository;
+    private final ISensorRepository sensorRepository;
+    private final IMeasurementRepository measurementRepository;
+    private final IAlertRuleRepository alertRuleRepository;
+    private final IAlertRepository alertRepository;
 
-    public MeasurementProcessingService(SensorRepository sensorRepository,
-                                      MeasurementRepository measurementRepository,
-                                      AlertRuleRepository alertRuleRepository,
-                                      AlertRepository alertRepository) {
+    public MeasurementProcessingService(ISensorRepository sensorRepository,
+                                      IMeasurementRepository measurementRepository,
+                                      IAlertRuleRepository alertRuleRepository,
+                                      IAlertRepository alertRepository) {
         this.sensorRepository = sensorRepository;
         this.measurementRepository = measurementRepository;
         this.alertRuleRepository = alertRuleRepository;
