@@ -29,12 +29,13 @@ public class SensorController {
 
     @POST
     public Response createSensor(@Valid CreateSensorRequest req) {
-        // Basit validasyon
+        // Bean Validation (@NotNull, @NotBlank) handles null/empty field validation
+        // GlobalExceptionHandler catches ConstraintViolationException → 400 Bad Request
         
         // 1. DTO -> Domain
         Sensor sensorDomain = sensorMapper.toDomain(req);
         
-        // 2. Use Case Call (Artık Repository değil!)
+        // 2. Use Case Call
         Sensor savedSensor = manageSensorUseCase.createSensor(sensorDomain);
         
         // 3. Domain -> DTO
@@ -52,17 +53,10 @@ public class SensorController {
 
     @GET
     @Path("/{id}")
-    public Response getSensorById( @PathParam("id") Long id) {
-        if (id == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"id is required\"}").build();
-        }
-        
+    public Response getSensorById(@PathParam("id") Long id) {
+        // Service throws IllegalArgumentException if sensor not found
+        // GlobalExceptionHandler catches it → 404 Not Found
         Sensor sensor = manageSensorUseCase.getSensorById(id);
-        
-        if (sensor == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("{\"error\": \"sensor not found\"}").build();
-        }
-        
         return Response.ok(sensorMapper.toResponse(sensor)).build();
     }
 }

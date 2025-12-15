@@ -1,12 +1,22 @@
  package io.agrisense.adapter.in.web.dto;
 
 import io.agrisense.domain.model.ECondition;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class CreateAlertRuleRequest {
+    
+    @NotBlank(message = "Alert rule name is required")
     private String name;
+    
+    @NotNull(message = "Condition is required")
     private ECondition condition;
+    
+    @NotNull(message = "Threshold value is required")
+    @Positive(message = "Threshold value must be positive")
     private Double value;
+    
     private String description;
     
     public CreateAlertRuleRequest() {

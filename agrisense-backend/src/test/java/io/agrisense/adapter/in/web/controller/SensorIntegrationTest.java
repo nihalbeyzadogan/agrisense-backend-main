@@ -50,14 +50,16 @@ public class SensorIntegrationTest {
     }
 
     @Test
-    public void testGetSensorById_NonExistent_Returns500() {
+    public void testGetSensorById_NonExistent_Returns404() {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8081;
 
+        // Service throws IllegalArgumentException for non-existent sensor
+        // GlobalExceptionHandler catches it and returns 404 Not Found
         given()
                 .when().get("/api/sensors/99999")
                 .then()
-                .statusCode(500);  // Service throws exception for non-existent sensor
+                .statusCode(404);
     }
 
     @Test
@@ -65,6 +67,8 @@ public class SensorIntegrationTest {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8081;
 
+        // @NotBlank validation on name rejects null/empty
+        // GlobalExceptionHandler catches ConstraintViolationException and returns 400
         String sensorJson = "{\"name\":null,\"type\":\"TEMPERATURE\",\"apiKey\":\"key123\",\"fieldId\":1}";
         given()
                 .contentType("application/json")
