@@ -10,6 +10,7 @@ import io.agrisense.domain.model.AlertRule;
 import io.agrisense.ports.in.IManageAlertRuleUseCase;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -31,75 +32,39 @@ public class AlertRuleController {
     @POST
     public Response createAlertRule(
             @PathParam("sensorId") Long sensorId,
-            CreateAlertRuleRequest request) {
+            @Valid CreateAlertRuleRequest request) {
+        // Bean Validation (@NotNull, @NotBlank) handles field validation
+        // GlobalExceptionHandler catches ConstraintViolationException → 400 Bad Request
+        // GlobalExceptionHandler catches IllegalArgumentException → 404 Not Found
         
-        try {
-            // Basic validation
-            if (sensorId == null || request == null || request.getName() == null || request.getCondition() == null || request.getThreshold() == null) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("{\"error\": \"sensorId, name, condition, threshold are required\"}")
-                        .build();
-            }
-            // 1. DTO -> Domain Çevirimi (Mapper ile)
-            AlertRule ruleDomain = alertRuleMapper.toDomain(request);
+        // 1. DTO -> Domain
+        AlertRule ruleDomain = alertRuleMapper.toDomain(request);
 
-            if (ruleDomain == null) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("{\"error\": \"Invalid alert rule data\"}")
-                        .build();
-            }
+        // 2. Service call
+        AlertRule createdRule = alertRuleUseCase.createRule(sensorId, ruleDomain);
 
-            // 2. Servis Çağrısı (Domain nesnesi ile)
-            AlertRule createdRule = alertRuleUseCase.createRule(sensorId, ruleDomain);
+        // 3. Domain -> DTO
+        AlertRuleResponse responseDTO = alertRuleMapper.toResponse(createdRule);
 
-            if (createdRule == null || createdRule.getId() == null) {
-                return Response.status(Response.Status.BAD_REQUEST)
-                        .entity("{\"error\": \"Unable to create alert rule\"}")
-                        .build();
-            }
 
-            // 3. Domain -> DTO Çevirimi (Response için)
-            AlertRuleResponse responseDTO = alertRuleMapper.toResponse(createdRule);
-
-            return Response
-                    .created(URI.create("/sensors/" + sensorId + "/rules/" + createdRule.getId()))
-                    .entity(responseDTO)
-                    .build();
-
-        } catch (IllegalArgumentException e) {
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("{\"error\": \"Internal server error\"}")
-                    .build();
-        }
+        return Response
+                .created(URI.create("/sensors/" + sensorId + "/rules/" + createdRule.getId()))
+                .entity(responseDTO)
+                .build();
     }
     
     @GET
     public Response getActiveAlertRules(@PathParam("sensorId") Long sensorId) {
-        try {
-            // Servisten gelen Domain listesi
-            List<AlertRule> activeRules = alertRuleUseCase.getActiveRules(sensorId);
-            
-            // Domain listesini Response DTO listesine çevir
-            List<AlertRuleResponse> responseList = alertRuleMapper.toResponseList(activeRules);
-            
-            return Response.ok(responseList).build();
-            
-        } catch (IllegalArgumentException e) {
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
-                    .build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("{\"error\": \"Internal server error\"}")
-                    .build();
-        }
+        // Service throws IllegalArgumentException if sensor not found
+        // GlobalExceptionHandler catches it → 404 Not Found
+        
+        // Get active rules from service
+        List<AlertRule> activeRules = alertRuleUseCase.getActiveRules(sensorId);
+        
+        // Convert domain list to response DTO list
+        List<AlertRuleResponse> responseList = alertRuleMapper.toResponseList(activeRules);
+        
+        return Response.ok(responseList).build();
     }
 
     @PUT

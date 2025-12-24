@@ -29,12 +29,8 @@ public class SensorController {
 
     @POST
     public Response createSensor(@Valid CreateSensorRequest req) {
-        // Basit validasyon (el yazısı hissiyle zorunlu alan kontrolü)
-        if (req == null || req.getName() == null || req.getType() == null || req.getApiKey() == null || req.getFieldId() == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("{\"error\": \"name, type, apiKey, fieldId are required\"}")
-                    .build();
-        }
+        // Bean Validation (@NotNull, @NotBlank) handles null/empty field validation
+        // GlobalExceptionHandler catches ConstraintViolationException → 400 Bad Request
 
         // 1. DTO -> Domain
         Sensor sensorDomain = sensorMapper.toDomain(req);
@@ -73,25 +69,9 @@ public class SensorController {
     @GET
     @Path("/{id}")
     public Response getSensorById( @PathParam("id") Long id) {
-        if (id == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"id is required\"}").build();
-        }
+        Sensor sensor = manageSensorUseCase.getSensorById(id);
+        return Response.ok(sensorMapper.toResponse(sensor)).build();
         
-        try {
-            Sensor sensor = manageSensorUseCase.getSensorById(id);
-            
-            SensorResponse response = sensorMapper.toResponse(sensor);
-            // Add HATEOAS links
-            response.set_links(new io.agrisense.adapter.in.web.dto.HateoasLinks()
-                    .addLink("self", "/api/sensors/" + sensor.getId())
-                    .addLink("all", "/api/sensors"));
-            
-            return Response.ok(response).build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
-                    .build();
-        }
     }
 
     @PUT
@@ -134,6 +114,7 @@ public class SensorController {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
                     .build();
+                }
         }
-    }
+
 }

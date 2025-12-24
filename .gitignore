@@ -1,3 +1,4 @@
+
 # OS
 .DS_Store
 
@@ -23,3 +24,8 @@ quarkus.log
 # Misc
 # Maven wrapper JARs are generated; ignore if present
 .mvn/wrapper/maven-wrapper.jar
+
+backend_1.pdf
+output2.txt
+agrisense-backend/IMPROVEMENTS_SUMMARY.md
+
